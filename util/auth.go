@@ -129,7 +129,6 @@ func randomString(n int) string {
 }
 
 func SetHMAC(req *http.Request, body []byte, shared []byte) {
-	slog.Warn("SetHMAC called", "XSHARED", base64.RawStdEncoding.EncodeToString(shared))
 	nonce := randomString(32)
 	req.Header.Set("X-Req-Nonce", nonce)
 	reqTime := time.Now().Format(time.RFC3339)
