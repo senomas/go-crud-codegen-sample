@@ -11,7 +11,6 @@ import (
 var reDuplicate = regexp.MustCompile(`duplicate key value violates unique constraint "([a-zA-Z0-9_]+)"`)
 
 type ErrorDuplicate struct {
-	Schema    string
 	Table     string
 	Constaint string
 	Cols      []string
@@ -20,9 +19,9 @@ type ErrorDuplicate struct {
 
 func (e *ErrorDuplicate) Error() string {
 	if len(e.Cols) > 0 {
-		return fmt.Sprintf("duplicate value for %s.%s (constraint=%s) (%s)", e.Schema, e.Table, e.Constaint, strings.Join(e.Cols, ", "))
+		return fmt.Sprintf("duplicate value for %s (constraint=%s) (%s)", e.Table, e.Constaint, strings.Join(e.Cols, ", "))
 	}
-	return fmt.Sprintf("duplicate value in %s.%s (constraint=%s)", e.Schema, e.Table, e.Constaint)
+	return fmt.Sprintf("duplicate value in %s (constraint=%s)", e.Table, e.Constaint)
 }
 
 func (e *ErrorDuplicate) process(db *sql.DB) {
