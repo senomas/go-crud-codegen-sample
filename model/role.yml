@@ -1,0 +1,27 @@
+Role:
+  seq: 2
+  table: app_role
+  fields:
+    - id: ID
+      field: id
+      type: autoincrement
+    - id: Name
+      type: text
+    - id: Description
+      type: text
+      nullable: true
+    - id: Privileges
+      type: json
+    - id: UpdatedBy
+      field: modified_by
+      type: text
+    - id: UpdatedAt
+      field: modified_date
+      type: timestamp
+      nullable: true
+  pkeys:
+    - ID
+  uniques:
+    - id: Name
+      fields:
+        - Name

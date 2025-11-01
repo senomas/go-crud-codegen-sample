@@ -1,0 +1,32 @@
+Param:
+  seq: 5
+  table: param
+  fields:
+    - id: ID
+      field: id
+      type: autoincrement
+    - id: Group
+      field: group_name
+      type: text
+    - id: Code
+      type: text
+    - id: Value
+      type: text
+      nullable: true
+    - id: Description
+      type: text
+      nullable: true
+    - id: UpdatedBy
+      field: modified_by
+      type: text
+    - id: UpdatedAt
+      field: modified_date
+      type: timestamp
+      nullable: true
+  pkeys:
+    - ID
+  uniques:
+    - id: PARAM_UNIQUE
+      fields:
+        - Code
+        - Group

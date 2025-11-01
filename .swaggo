@@ -1,0 +1,5 @@
+replace json.RawMessage object
+replace example.com/app-api/util/jsql.NullInt64 integer
+replace example.com/app-api/util/jsql.NullString string
+replace example.com/app-api/util/jsql.Secret string
+

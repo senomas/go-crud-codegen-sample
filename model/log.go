@@ -1,0 +1,90 @@
+package model
+
+import (
+	"database/sql"
+	"fmt"
+	"log/slog"
+
+	"example.com/app-api/util/jsql"
+)
+
+func logNullString(key string, v jsql.NullString) slog.Attr {
+	if v.Valid {
+		return slog.String(key, v.String)
+	}
+	return slog.Any(key, nil)
+}
+
+func logNullSecret(key string, v jsql.Secret) slog.Attr {
+	if v.Valid {
+		return slog.String(key, v.String)
+	}
+	return slog.Any(key, nil)
+}
+
+func logNullInt64(key string, v jsql.NullInt64) slog.Attr {
+	if v.Valid {
+		return slog.Int64(key, v.Int64)
+	}
+	return slog.Any(key, nil)
+}
+
+func logQueryArgs(msg string, query string, args []any) {
+	attrs := make([]any, len(args)+1)
+	attrs[0] = slog.String("qry", query)
+	for i, v := range args {
+		ik := fmt.Sprintf("args[%d]", i+1)
+		if value, ok := v.(sql.NullString); ok {
+			if value.Valid {
+				attrs[i+1] = slog.String(ik, value.String)
+			} else {
+				attrs[i+1] = slog.Any(ik, nil)
+			}
+		} else if value, ok := v.(sql.NullInt64); ok {
+			if value.Valid {
+				attrs[i+1] = slog.Int64(ik, value.Int64)
+			} else {
+				attrs[i+1] = slog.Any(ik, nil)
+			}
+		} else if value, ok := v.(sql.NullTime); ok {
+			if value.Valid {
+				attrs[i+1] = slog.String(ik, value.Time.String())
+			} else {
+				attrs[i+1] = slog.Any(ik, nil)
+			}
+		} else {
+			attrs[i+1] = slog.Any(ik, v)
+		}
+	}
+	slog.Debug(msg, attrs...)
+}
+
+func logErrorQueryArgs(msg string, query string, args []any) {
+	attrs := make([]any, len(args)+1)
+	attrs[0] = slog.String("qry", query)
+	for i, v := range args {
+		ik := fmt.Sprintf("args[%d]", i+1)
+		if value, ok := v.(sql.NullString); ok {
+			if value.Valid {
+				attrs[i+1] = slog.String(ik, value.String)
+			} else {
+				attrs[i+1] = slog.Any(ik, nil)
+			}
+		} else if value, ok := v.(sql.NullInt64); ok {
+			if value.Valid {
+				attrs[i+1] = slog.Int64(ik, value.Int64)
+			} else {
+				attrs[i+1] = slog.Any(ik, nil)
+			}
+		} else if value, ok := v.(sql.NullTime); ok {
+			if value.Valid {
+				attrs[i+1] = slog.String(ik, value.Time.String())
+			} else {
+				attrs[i+1] = slog.Any(ik, nil)
+			}
+		} else {
+			attrs[i+1] = slog.Any(ik, v)
+		}
+	}
+	slog.Error(msg, attrs...)
+}

@@ -1,0 +1,50 @@
+# Define your reusable logging configuration using an anchor
+x-logging-config:
+  &default-logging # 'x-' prefix is a convention for extension fields, not strictly required for anchors
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  test-db:
+    image: ${DOCKER_REGISTRY}/postgres:${POSTGRES_VER}
+    restart: unless-stopped
+    logging: *default-logging
+    shm_size: 2gb
+    volumes:
+      - pgdata:/database
+    env_file:
+      - .env
+      - .local.env
+      - .secret.env
+    stop_grace_period: 120s
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 15s
+      timeout: 10s
+      retries: 40
+      start_period: 5m
+  app-test:
+    image: local/app-test:dev
+    logging: *default-logging
+    env_file:
+      - .env
+      - .secret.env
+      - .local.env
+    environment:
+      TZ: Asia/Jakarta
+      DB_HOST: test-db
+      LOG_FILE: /app/log/test.log
+      CONSOLE_ERROR: true
+    volumes:
+      - ./migrations:/app/migrations
+      - ./model:/app/model
+      - ./handler:/app/handler
+      - .:/app/log
+      - godeps:/go
+    command: echo no test ; fail
+
+volumes:
+  godeps:
+  pgdata:
