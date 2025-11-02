@@ -1,5 +1,7 @@
 Param:
   seq: 5
+  db: db
+  type: postgres
   table: param
   fields:
     - id: ID

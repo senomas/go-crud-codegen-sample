@@ -119,7 +119,7 @@ func TestUserCrud(t *testing.T) {
 
 		assert.Equal(t, int64(1), user.ID)
 		assert.Equal(t, "admin@example.com", user.Email)
-		assert.Equal(t, "ADMIN", user.Name)
+		assert.Equal(t, "Admin", user.Name)
 		assert.NotEqual(t, "", user.Password)
 		assert.NotEqual(t, "admin123", user.Password)
 		fmt.Printf("hashed password %s\n", user.Password.String)
@@ -152,7 +152,7 @@ func TestUserCrud(t *testing.T) {
 
 		assert.Equal(t, int64(1), user.ID)
 		assert.Equal(t, "admin@example.com", user.Email)
-		assert.Equal(t, "ADMIN", user.Name)
+		assert.Equal(t, "Admin", user.Name)
 
 		assert.Equal(t, 2, len(user.Roles))
 		assert.Equal(t, "Admin", user.Roles[0].Name)
@@ -174,7 +174,7 @@ func TestUserCrud(t *testing.T) {
 
 		assert.Equal(t, int64(1), user.ID)
 		assert.Equal(t, "admin@example.com", user.Email)
-		assert.Equal(t, "ADMIN", user.Name)
+		assert.Equal(t, "Admin", user.Name)
 		assert.NotEqual(t, "", user.Password)
 		assert.NotEqual(t, "admin123", user.Password)
 
@@ -216,7 +216,7 @@ func TestUserCrud(t *testing.T) {
 		assert.Equal(t, int64(1), user.ID)
 		assert.Equal(t, int64(version+1), user.Version)
 		assert.Equal(t, "admin@demo.com", user.Email)
-		assert.Equal(t, "ADMIN", user.Name)
+		assert.Equal(t, "Admin", user.Name)
 
 		assert.Equal(t, "Asia/Jakarta", user.CreatedAt.Location().String(), "createdAt must be in Asia/Jakarta timezone")
 
@@ -231,7 +231,7 @@ func TestUserCrud(t *testing.T) {
 		assert.Equal(t, int64(1), total, "total must 1")
 		assert.Equal(t, 1, len(users), "len(users) must 1")
 		assert.Equal(t, "admin@demo.com", users[0].Email)
-		assert.Equal(t, "ADMIN", users[0].Name)
+		assert.Equal(t, "Admin", users[0].Name)
 	})
 
 	uid := int64(3)
@@ -264,14 +264,14 @@ func TestUserCrud(t *testing.T) {
 
 		assert.Equal(t, uid, user.ID)
 		assert.Equal(t, "staff@demo.com", user.Email)
-		assert.Equal(t, "STAFF", user.Name)
+		assert.Equal(t, "Staff", user.Name)
 		assert.NotNil(t, user.CreatedBy)
 		assert.Equal(t, int64(1), user.CreatedBy.ID)
-		assert.Equal(t, "ADMIN", user.CreatedBy.Name)
+		assert.Equal(t, "Admin", user.CreatedBy.Name)
 		assert.Equal(t, "admin@demo.com", user.CreatedBy.Email)
 		assert.NotNil(t, user.UpdatedBy)
 		assert.Equal(t, int64(1), user.UpdatedBy.ID)
-		assert.Equal(t, "ADMIN", user.UpdatedBy.Name)
+		assert.Equal(t, "Admin", user.UpdatedBy.Name)
 		assert.Equal(t, "admin@demo.com", user.UpdatedBy.Email)
 	})
 
@@ -381,7 +381,7 @@ func TestUserCrud(t *testing.T) {
 
 		assert.Equal(t, int64(10), user.ID)
 		assert.Equal(t, "dummy5@demo.com", user.Email)
-		assert.Equal(t, "DUMMY 5", user.Name)
+		assert.Equal(t, "Dummy 5", user.Name)
 	})
 
 	t.Run("Find users like dummy% sort by name desc limit 5", func(t *testing.T) {

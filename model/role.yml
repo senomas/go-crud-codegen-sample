@@ -1,5 +1,7 @@
 Role:
   seq: 2
+  db: db
+  type: postgres
   table: app_role
   fields:
     - id: ID

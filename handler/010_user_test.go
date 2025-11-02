@@ -10,12 +10,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	"example.com/app-api/handler"
 	"example.com/app-api/model"
 	"example.com/app-api/util"
 	_ "example.com/app-api/util"
 	"example.com/app-api/util/jsql"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestUserCrudApi(t *testing.T) {
@@ -207,7 +207,7 @@ func TestUserCrudApi(t *testing.T) {
 
 		assert.Equal(t, int64(1), user.ID)
 		assert.Equal(t, "admin@example.com", user.Email)
-		assert.Equal(t, "ADMIN", user.Name)
+		assert.Equal(t, "Admin", user.Name)
 
 		assert.NotEqual(t, "", user.Password)
 		assert.Equal(t, "**********", user.Password.String)
@@ -267,7 +267,7 @@ func TestUserCrudApi(t *testing.T) {
 
 		assert.Equal(t, int64(1), user.ID)
 		assert.Equal(t, "admin@example.com", user.Email)
-		assert.Equal(t, "ADMIN", user.Name)
+		assert.Equal(t, "Admin", user.Name)
 
 		assert.NotEqual(t, "", user.Password)
 		assert.Equal(t, "**********", user.Password.String)
@@ -369,7 +369,7 @@ func TestUserCrudApi(t *testing.T) {
 
 		assert.Equal(t, int64(1), user.ID)
 		assert.Equal(t, "admin@example.com", user.Email)
-		assert.Equal(t, "ADMIN", user.Name)
+		assert.Equal(t, "Admin", user.Name)
 
 		assert.NotEqual(t, "", user.Password)
 		assert.Equal(t, "**********", user.Password.String)
@@ -458,7 +458,7 @@ func TestUserCrudApi(t *testing.T) {
 
 		assert.Equal(t, int64(1), user.ID)
 		assert.Equal(t, "admin@demo.com", user.Email)
-		assert.Equal(t, "ADMIN", user.Name)
+		assert.Equal(t, "Admin", user.Name)
 		assert.Equal(t, 2, len(user.Roles))
 		assert.Equal(t, "Admin", user.Roles[0].Name)
 		assert.Equal(t, "Opr", user.Roles[1].Name)
@@ -517,7 +517,7 @@ func TestUserCrudApi(t *testing.T) {
 
 		assert.Equal(t, int64(2), user.ID)
 		assert.Equal(t, "staff@demo.com", user.Email)
-		assert.Equal(t, "STAFF", user.Name)
+		assert.Equal(t, "Staff", user.Name)
 		assert.NotNil(t, user.CreatedBy)
 		assert.Equal(t, int64(1), user.CreatedBy.ID)
 		assert.NotNil(t, user.UpdatedBy)
@@ -787,7 +787,7 @@ func TestUserCrudApi(t *testing.T) {
 			Offset: 0,
 			Filter: []model.UserFilter{{
 				Field: model.UserField_Name,
-				Op:    model.FilterOp_Like,
+				Op:    model.FilterOp_ILike,
 				Value: json.RawMessage(bv),
 			}},
 		})

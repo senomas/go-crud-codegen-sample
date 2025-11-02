@@ -85,7 +85,7 @@ build: init FORCE
 
 model/.gen: build.properties model/*.yml
 	@mkdir -p .cache/golang/pkg .cache/golang/cache
-	@rm -rf model/gen__* handler/gen__*
+	@rm -rf model/gen__* handler/gen__* util/gen__* util/jsql/gen__*
 	@build_args=$$($(call envs)); \
 	if [ "${CODEGEN_PATH}" != "" ]; then \
 		build_args="$$build_args -v $(shell pwd)/${CODEGEN_PATH}:/work/codegen"; \
@@ -100,7 +100,7 @@ model/.gen: build.properties model/*.yml
 		$$build_args  \
 		-w /work/app \
 		${DOCKER_REGISTRY}/crudgen:${CRUD_GEN_VER} \
-		codegen postgresql example.com/app-api && \
+		codegen example.com/app-api && \
 	docker run --rm \
 		-e LOCAL_USER_ID=$$(id -u) \
 		-e LOCAL_GROUP_ID=$$(id -g) \

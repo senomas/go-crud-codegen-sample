@@ -45,7 +45,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	db := util.GetPostgreSqlConn(*prefix)
+	db := util.GetPostgresConn(*prefix)
 	defer db.Close()
 
 	{
