@@ -85,7 +85,8 @@ build: init FORCE
 
 model/.gen: build.properties model/*.yml
 	@mkdir -p .cache/golang/pkg .cache/golang/cache
-	@rm -rf model/gen__* handler/gen__* util/gen__* util/jsql/gen__*
+	@rm -rf model/gen__* handler/gen__* util/gen__* util/jsql/gen__* docs/*
+	@rm -f migrations/[0-9]*-gen__*.sql
 	@build_args=$$($(call envs)); \
 	if [ "${CODEGEN_PATH}" != "" ]; then \
 		build_args="$$build_args -v $(shell pwd)/${CODEGEN_PATH}:/work/codegen"; \

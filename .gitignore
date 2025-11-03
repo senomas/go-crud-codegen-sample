@@ -10,8 +10,6 @@ static
 */.git-credentials
 */.gitconfig
 /docs
-gen__*.go
-gen__*.go
 .cache
 .gitconfig
 .git-credentials
